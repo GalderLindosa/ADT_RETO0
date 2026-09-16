@@ -20,3 +20,5 @@ rad.json
 #Test results file
 TestResults.xml
 
+/nbproject/private/
+/build/
