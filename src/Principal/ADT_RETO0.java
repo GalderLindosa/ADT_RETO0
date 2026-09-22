@@ -18,6 +18,15 @@ public class ADT_RETO0 {
     public static void main(String[] args) {
      MainView ui =new MainView();
     ui.start();
+    
+    
+    
+    
     }
-    }
+    
+    
+    
 
+    
+    
+    }
