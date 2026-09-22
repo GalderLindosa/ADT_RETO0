@@ -22,6 +22,11 @@ public class Order {
         this.endDate = endDate;
         this.delivered = delivered;
     }
+    public Order(int id, LocalDate orderDate, boolean delivered) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.delivered = delivered;
+    }
 
     public int getId() {
         return id;
