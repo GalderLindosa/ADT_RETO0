@@ -26,7 +26,7 @@ public class ImplementacionBD implements ShopDAO {
     private String userBD;
     private String passwordBD;
     // Sentencias SQL
-    
+    final String CustomerId = "SELECT * FROM Customer WHERE id = ?";	
     // Para la conexi n utilizamos un fichero de configuaraci n, config que
     // guardamos en el paquete control: (las pasa a una variable de l programa)
     public ImplementacionBD() {
@@ -47,4 +47,26 @@ public class ImplementacionBD implements ShopDAO {
                     e.printStackTrace();
             }
     }
+    public String Customer(int id) { 
+		// Abrimos la conexion
+		int id=0;
+                Client customer=null;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQL);
+			stmt.setString(1, id);
+			ResultSet resultado = stmt.executeQuery();
+			//Si hay un resultado, el usuario existe
+			if (resultado.next()) {
+				Client c =new Client()resultado.getString("creatureName");
+			}
+			resultado.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}
+		return nom;
+	}
+    
 }
