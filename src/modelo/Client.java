@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Unai.Ibarguren
@@ -14,7 +16,7 @@ public class Client {
     private String name;
     private String email;
     private String phoneNumber;
-    private String address;
+    private String address; 
 
     public Client(int id, String name, String email, String phoneNumber, String address) {
         this.id = id;
@@ -22,6 +24,8 @@ public class Client {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+      public Client() {
     }
 
     public int getId() {
@@ -60,6 +64,7 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
+  
     public void setAddress(String address) {
         this.address = address;
     }

@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ire22
@@ -16,6 +18,7 @@ public class Product {
     private Category category;
     private int stock;
     private String path;
+    private ArrayList<Order> orders; 
 
     public Product() {
         this.id = 0;

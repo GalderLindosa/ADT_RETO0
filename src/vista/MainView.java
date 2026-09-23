@@ -11,6 +11,12 @@ import utilidades.Utilidades;
  * @author ire22
  */
 public class MainView {
+   // private ShopControlador controlador;
+    public MainView() {
+      //  this.controlador= new ShopControlador();
+    }
+    
+    
      public int menu(){
         int resp;
         System.out.println("-1.Registrar producto"
@@ -30,6 +36,9 @@ public class MainView {
          int option = -1;
          while (option != 0){
              option = this.menu();
+         }
+         switch (option){
+            // case 1: contcon
          }
      }
 }

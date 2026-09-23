@@ -10,4 +10,5 @@ package modelo;
  */
 public interface ShopDAO {
     public void verProductos();
+    public Client getCustomerById(int id);
 }
