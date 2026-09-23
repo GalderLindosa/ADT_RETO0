@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.CallableStatement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 /**
  *
@@ -26,6 +28,7 @@ public class ImplementacionBD implements ShopDAO {
     private String userBD;
     private String passwordBD;
     // Sentencias SQL
+    final String VER_PRODUCTOS = "SELECT * FROM product WHERE stock > 0";
     
     // Para la conexi n utilizamos un fichero de configuaraci n, config que
     // guardamos en el paquete control: (las pasa a una variable de l programa)
@@ -46,5 +49,55 @@ public class ImplementacionBD implements ShopDAO {
             } catch (Exception e) {
                     e.printStackTrace();
             }
+    }
+    
+    /*
+    public List<Objetos> verObjectos(Creature creature) {
+        List<Objetos> objetos= new ArrayList<>();
+
+        this.openConnection();
+        try {
+                // Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+                stmt = con.prepareStatement(SQLCONSULTA);
+                stmt.setInt(1, creature.getCodC());
+                ResultSet resultado = stmt.executeQuery();
+                while (resultado.next()) {
+                        Accesory accesorio=new Accesory(resultado.getInt("cod_object"),resultado.getString("objectName"), resultado.getInt("happiness_effect"));
+                        objetos.add(accesorio);
+                }
+                resultado.close();
+                stmt.close();
+                con.close();
+        } catch (SQLException e) {
+                System.out.println("Error al mostrar credenciales: " + e.getMessage());
+        }
+        return objetos;
+    }
+    */
+    
+    public void verProductos() {
+        List<Product> productos = new ArrayList<>();
+        
+        this.openConnection();
+        try {
+                // Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+                stmt = con.prepareStatement(VER_PRODUCTOS);
+                ResultSet resultado = stmt.executeQuery();
+                while (resultado.next()) {
+                    Product producto = new Product();
+                    producto.setId(resultado.getInt("ID"));
+                    producto.setName(resultado.getString("NAME_P"));
+                    producto.setPrice(resultado.getDouble("PRICE"));
+                    producto.setCategory(Category.valueOf(resultado.getString("CATEGORY")));
+                    producto.setStock(resultado.getInt("STOCK"));
+                    producto.setPath(resultado.getString("ROOT"));
+                    System.out.println(producto);
+                }
+                resultado.close();
+                stmt.close();
+                con.close();
+        } catch (SQLException e) {
+                System.out.println("Error al mostrar credenciales: " + e.getMessage());
+        }
     }
 }

@@ -9,5 +9,5 @@ package modelo;
  * @author Unai.Ibarguren
  */
 public interface ShopDAO {
-    
+    public void verProductos();
 }

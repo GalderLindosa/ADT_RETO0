@@ -18,6 +18,12 @@ public class Product {
     private String path;
 
     public Product() {
+        this.id = 0;
+        this.name = "";
+        this.price = 0;
+        this.category = null;
+        this.stock = 0;
+        this.path = "";
     }
 
     public Product(int id, String name, double price, Category category, int stock, String path) {

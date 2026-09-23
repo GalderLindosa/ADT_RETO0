@@ -11,5 +11,7 @@ import modelo.*;
 public class ShopControlador {
     ShopDAO dao = new ImplementacionBD();
     
-    
+    public void verProductos(){
+        dao.verProductos();
+    }
 }
