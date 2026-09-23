@@ -24,33 +24,33 @@ public class MainIrene {
 		Order o1 = new Order(321,orderDate,endDate,true);
 		Object o2 = new Order(123,orderDate,false);
 		
-		try {
-			oos = new ObjectOutputStream(new FileOutputStream(fichO));
-
-			oos.writeObject(new Order(321,orderDate,endDate,true) );
-			oos.writeObject(new Order(123,orderDate,false));
-			
-			ArrayList <Objeto> Objetos1= new ArrayList<Objeto>();
-			ArrayList <Objeto> Objetos2= new ArrayList<Objeto>();
-			ArrayList <Objeto> Objetos3= new ArrayList<Objeto>();
-			ArrayList <Objeto> Objetos4= new ArrayList<Objeto>();
-
-			Objetos1.add((Objeto) o1);
-			Objetos1.add((Objeto) o2);
-			Objetos2.add((Objeto) o3);
-			Objetos2.add((Objeto) o4);
-			Objetos3.add((Objeto) o5);
-			Objetos3.add((Objeto) o6);
-			Objetos4.add((Objeto) o6);
-
-			oos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			oos = new ObjectOutputStream(new FileOutputStream(fichO));
+//
+//			oos.writeObject(new Order(321,orderDate,endDate,true) );
+//			oos.writeObject(new Order(123,orderDate,false));
+//			
+//			ArrayList <Objeto> Objetos1= new ArrayList<Objeto>();
+//			ArrayList <Objeto> Objetos2= new ArrayList<Objeto>();
+//			ArrayList <Objeto> Objetos3= new ArrayList<Objeto>();
+//			ArrayList <Objeto> Objetos4= new ArrayList<Objeto>();
+//
+//			Objetos1.add((Objeto) o1);
+//			Objetos1.add((Objeto) o2);
+//			Objetos2.add((Objeto) o3);
+//			Objetos2.add((Objeto) o4);
+//			Objetos3.add((Objeto) o5);
+//			Objetos3.add((Objeto) o6);
+//			Objetos4.add((Objeto) o6);
+//
+//			oos.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}        
 }
