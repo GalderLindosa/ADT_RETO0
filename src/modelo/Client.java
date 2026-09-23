@@ -16,16 +16,16 @@ public class Client {
     private String name;
     private String email;
     private String phoneNumber;
-    private String address;
-    private ArrayList<Order> orders; 
+    private String address; 
 
-    public Client(int id, String name, String email, String phoneNumber, String address, ArrayList<Order> orders) {
+    public Client(int id, String name, String email, String phoneNumber, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.orders=orders;
+    }
+      public Client() {
     }
 
     public int getId() {
@@ -64,6 +64,7 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
+  
     public void setAddress(String address) {
         this.address = address;
     }
