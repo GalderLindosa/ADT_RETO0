@@ -11,5 +11,11 @@ import modelo.*;
 public class ShopControlador {
     ShopDAO dao = new ImplementacionBD();
     
+    public void editStock(){
+         dao.editStock();
+    }
     
+    public boolean productExists(Product product){
+        return dao.productExists(product);
+    }
 }

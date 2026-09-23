@@ -1,8 +1,7 @@
 package vista;
 
-
+import controlador.ShopControlador;
 import utilidades.Utilidades;
-
 
 /**
  *
@@ -25,6 +24,8 @@ public class MainView {
 
     public void start() {
         int option;
+        ShopControlador cont = new ShopControlador();
+
         do {
             option = menu();
             switch (option) {
@@ -38,6 +39,13 @@ public class MainView {
                 case 3:
                     break;
                 case 4:
+                    cont.editStock();
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
                     break;
             }
         } while (option != 0);
