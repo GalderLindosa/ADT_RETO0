@@ -9,6 +9,12 @@ package modelo;
  * @author Unai.Ibarguren
  */
 public interface ShopDAO {
+
     public void verProductos();
+
     public Client getCustomerById(int id);
+
+    public boolean registrarProducto(Product p);
+
+    public boolean registrarCliente(Client c);
 }

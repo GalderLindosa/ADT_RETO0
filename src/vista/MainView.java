@@ -5,19 +5,22 @@
 package vista;
 
 import utilidades.Utilidades;
+import controlador.ShopControlador;
+
 
 /**
  *
  * @author ire22
  */
 public class MainView {
-   // private ShopControlador controlador;
+
+    private ShopControlador controlador;
+
     public MainView() {
-      //  this.controlador= new ShopControlador();
+        this.controlador = new ShopControlador();
     }
-    
-    
-     public int menu(){
+
+    public int menu() {
         int resp;
         System.out.println("-1.Registrar producto"
                 + "\n-2.Registrar cliente"
@@ -27,18 +30,18 @@ public class MainView {
                 + "\n-6.Conusltar pedidos"
                 + "\n-7.Ver historial pedido productos"
                 + "\n-0.Salir");
-                
-        resp=Utilidades.leerInt(0, 7); 
-        return resp; 
+
+        resp = Utilidades.leerInt(0, 7);
+        return resp;
     }
-     
-     public void start(){
-         int option = -1;
-         while (option != 0){
-             option = this.menu();
-         }
-         switch (option){
+
+    public void start() {
+        int option = -1;
+        while (option != 0) {
+            option = this.menu();
+        }
+        switch (option) {
             // case 1: contcon
-         }
-     }
+        }
+    }
 }
