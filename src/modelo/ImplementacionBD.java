@@ -238,7 +238,7 @@ public class ImplementacionBD implements ShopDAO {
 
         try {
             // Prepare the SQL query
-            stmt = con.prepareStatement(SQLGET_PRODUCT);
+            stmt = con.prepareStatement(SQL_ProductExists);
             stmt.setInt(1, product.getId());
 
             rs = stmt.executeQuery();

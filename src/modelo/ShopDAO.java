@@ -10,8 +10,6 @@ public interface ShopDAO {
 
     public void verProductos();
     public boolean registrarProducto(Product p);
-    public boolean productExists(Product product);
-    public void editStock();
 
     // Clientes
     public Client getCustomerById(int id);

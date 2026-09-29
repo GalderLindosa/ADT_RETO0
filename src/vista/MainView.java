@@ -25,7 +25,7 @@ public class MainView {
        ImplementacionFichero instanceF = ImplementacionFichero.getInstance();
         ImplementacionBD instanceBD = ImplementacionBD.getInstance();
         File fichO = new File("order.dat");
-        ShopControlador cont = new ShopControlador();
+        ShopControlador controlador = new ShopControlador();
       if (!fichO.exists()) {
             instanceF.fillDataOrder(fichO);
         }
