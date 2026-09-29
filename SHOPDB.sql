@@ -33,3 +33,5 @@ VALUES
 (3, 'Ana Torres', 'ana.torres@mail.com', '634567890', 'Getxo'),
 (4, 'Jon Etxeberria', 'jon.etxe@mail.com', '645789012', 'Santurtzi'),
 (5, 'Marta López', 'marta.lopez@mail.com', '678901234', 'Leioa');
+
+SELECT PRODUCT; 
