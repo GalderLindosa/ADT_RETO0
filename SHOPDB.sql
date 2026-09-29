@@ -20,9 +20,11 @@ ADDRESS VARCHAR(30)
 );
 INSERT INTO PRODUCT (ID, NAME_P, PRICE, CATEGORY, STOCK, ROOT)
 VALUES
+
 (1, 'Nike Air Max', 129.99, 'FOOTWEAR', 15, 'nike.jpg'),
 (2, 'Adidas Hoodie', 59.90, 'TEXTILE', 30, 'adidas.jpg'),
 (3, 'Puma Running Shoes', 89.99, 'FOOTWEAR', 20, 'puma.jpg');
+
 
 INSERT INTO CLIENT_S (ID, NAME_C, EMAIL, PHONE, ADDRESS)
 VALUES
