@@ -29,7 +29,14 @@ public class MainView {
         return Utilidades.leerInt(0, 7);
     }
 
+
+    // private ShopControlador controlador;
+    public MainView() {
+        //  this.controlador= new ShopControlador();
+    }
+
     public void start() {
+<<<<<<< HEAD
 
         int option;
 
@@ -37,6 +44,13 @@ public class MainView {
 
             option = menu();
 
+=======
+        int option = -1;
+        ShopControlador cont = new ShopControlador();
+
+        while (option != 0) {
+            option = this.menu();
+>>>>>>> origin/Branch_Galder
             switch (option) {
 
                 case 0:
@@ -68,7 +82,16 @@ public class MainView {
                 case 7:
                     break;
             }
+<<<<<<< HEAD
 
         } while (option != 0);
     }
 }
+=======
+        }
+        switch (option) {
+            // case 1: contcon
+        }
+    }
+}
+>>>>>>> origin/Branch_Galder

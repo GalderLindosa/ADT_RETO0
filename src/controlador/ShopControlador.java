@@ -19,6 +19,20 @@ public class ShopControlador {
     private ImplementacionBD dao;
 
     public ShopControlador() {
+    ShopDAO dao = new ImplementacionBD();
+
+    public void editStock(){
+         dao.editStock();
+    }
+    
+    public boolean productExists(Product product){
+        return dao.productExists(product);
+    }
+    public void verProductos(){
+        dao.verProductos();
+    }
+    public ShopControlador(){
+        this.<error> = new ImplementacionBD ;
         this.dao = ImplementacionBD.getInstance();
     }
 
@@ -156,5 +170,28 @@ public class ShopControlador {
         } else {
             System.out.println("Error registering a client.");
         }
+      try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichO))) {
+          while (!finArchivo) {
+              try {
+                  Order o = (Order) ois.readObject();
+
+                  if (o.getIdCostumer() == id) {
+                      clienteExiste = true;
+                      finArchivo = true; // ya lo encontré
+                  }
+              } catch (EOFException e) {
+                  finArchivo = true; // fin del fichero
+              }
+          }
+      } catch (FileNotFoundException e) {
+          System.out.println("No se encontró el fichero.");
+      } catch (ClassNotFoundException e) {
+          System.out.println("La clase Objeto no es válida.");
+      } catch (IOException e) {
+          System.out.println("Error leyendo el fichero.");
+      }
+
+      return clienteExiste;
+
     }
 }
