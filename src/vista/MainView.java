@@ -16,7 +16,7 @@ public class MainView {
         System.out.println("5. Check available products.");
         System.out.println("6. Check a custormer's order.");
         System.out.println("7. View order history for a specific product.");
-        System.out.println("Choose an option");
+        System.out.print("Choose an option: ");
         return Utilidades.leerInt(0, 7);
     }
 

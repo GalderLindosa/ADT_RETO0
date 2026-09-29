@@ -4,14 +4,16 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author ire22
  */
-public class Product {
-
+public class Product implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private int id;
     private String name;
     private double price;
