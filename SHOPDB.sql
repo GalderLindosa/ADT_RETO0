@@ -26,6 +26,7 @@ VALUES
 (3, 'Puma Running Shoes', 89.99, 'FOOTWEAR', 20, 'puma.jpg');
 
 
+
 INSERT INTO CLIENT_S (ID, NAME_C, EMAIL, PHONE, ADDRESS)
 VALUES
 (1, 'Laura Gómez', 'laura.gomez@mail.com', '612345678', 'Bilbao'),

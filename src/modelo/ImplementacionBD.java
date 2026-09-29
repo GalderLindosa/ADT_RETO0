@@ -32,6 +32,7 @@ public class ImplementacionBD implements ShopDAO {
     final String SQL_OrdersByCustomer = "SELECT orderId, orderDate, total FROM ORDERS WHERE customerId = ?";
     final String SQL_UpdateStock = "UPDATE PRODUCT SET STOCK=? WHERE ID=?";
     final String SQL_ProductExists = "SELECT ID FROM PRODUCT WHERE ID=?";
+    final String SQL_GetProduct = "SELECT * FROM product WHERE id = ?";
 
     // Singleton
     private static ImplementacionBD instance;
@@ -278,5 +279,32 @@ public class ImplementacionBD implements ShopDAO {
         }
 
         return exists;
+    }
+    
+    public Product getProduct (int id) {
+        Product product = null;
+        openConnection();
+
+        try {
+            stmt = con.prepareStatement(SQL_GetProduct);
+            stmt.setInt(1, id);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                
+                product.setId(resultado.getInt("ID"));
+                product.setName(resultado.getString("NAME_P"));
+                product.setPrice(resultado.getDouble("PRICE"));
+                product.setCategory(Category.valueOf(resultado.getString("CATEGORY")));
+                product.setStock(resultado.getInt("STOCK"));
+                product.setPath(resultado.getString("ROOT"));
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Fail showing products: " + e.getMessage());
+        }
+        
+        return product;
     }
 }

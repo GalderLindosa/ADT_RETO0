@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import modelo.*;
@@ -185,6 +186,34 @@ public class ShopControlador {
         }
 
         return clienteExiste;
+    }
+    
+    public void placeOrder(File fichO) {
+        int id, idCustomer, idP;
+        LocalDate orderDate = LocalDate.now();
+        boolean delivered = false, fin = false;
+        ArrayList<Product> aProducts = null;
+        String respuesta;
+        
+        System.out.println("Enter the orders id:");
+        id = Utilidades.leerInt();
+        System.out.println("Enter the customers id:");
+        idCustomer = Utilidades.leerInt();
+        do {
+            System.out.println("Select the id of the product that will be in the order:");
+            dao.verProductos();
+            idP = Utilidades.leerInt();
+            aProducts.add(dao.getProduct(idP));
+            System.out.println("Do you want to add more products? (Y/N)");
+            respuesta = Utilidades.introducirCadena();
+            if (respuesta.equalsIgnoreCase("N")) {
+                fin = true;
+            }
+        } while (!fin);
+        
+        Order order = new Order (id, idCustomer, orderDate, delivered, aProducts);
+        daoF.placeOrder(fichO, order);
+        System.out.println("Order added.");
     }
 
     // -------------------- CONSULTAR PEDIDOS --------------------

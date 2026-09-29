@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import utilidades.MyObjectOutputStream;
 
 /**
  *
@@ -131,5 +132,32 @@ public class ImplementacionFichero implements ShopDAOF {
         }
 
         return aOrders;
+    }
+    
+    public void placeOrder(File fichO, Order order) {
+        ObjectOutputStream oos = null;
+        MyObjectOutputStream moos = null;
+        
+        if (fichO.exists()) {
+            try {
+                moos = new MyObjectOutputStream(new FileOutputStream(fichO, true));
+                moos.writeObject(order);
+                moos.close();
+            } catch (FileNotFoundException e) {
+                    System.out.println("Error, fichero no encontrado");
+            } catch (IOException e) {
+                    System.out.println("Error en la entrada de datos");
+            }
+        } else {
+            try {
+                oos = new ObjectOutputStream(new FileOutputStream(fichO));
+                oos.writeObject(order);
+                oos.close();
+            } catch (FileNotFoundException e) {
+                    System.out.println("Error, fichero no encontrado");
+            } catch (IOException e) {
+                    System.out.println("Error en la entrada de datos");
+            }
+        }
     }
 }

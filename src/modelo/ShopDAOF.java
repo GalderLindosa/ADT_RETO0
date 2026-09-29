@@ -16,4 +16,5 @@ public interface ShopDAOF {
     public boolean existCustomer(File fichO, int id);
     public ArrayList<Order> pedidosCliente(File fichO, int id);
     public ArrayList<Order> productos(File fichO, int id) ;
+    public void placeOrder(File fichO, Order order);
 }
