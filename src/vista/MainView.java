@@ -20,13 +20,12 @@ public class MainView {
         return Utilidades.leerInt(0, 7);
     }
 
-
     public void start() {
-       ImplementacionFichero instanceF = ImplementacionFichero.getInstance();
+        ImplementacionFichero instanceF = ImplementacionFichero.getInstance();
         ImplementacionBD instanceBD = ImplementacionBD.getInstance();
         File fichO = new File("order.dat");
         ShopControlador controlador = new ShopControlador();
-      if (!fichO.exists()) {
+        if (!fichO.exists()) {
             instanceF.fillDataOrder(fichO);
         }
         int option;
@@ -47,7 +46,7 @@ public class MainView {
                     break;
 
                 case 3:
-                    controlador.verProductos();
+                    controlador.placeOrder(fichO);
                     break;
 
                 case 4:
@@ -55,15 +54,15 @@ public class MainView {
                     break;
 
                 case 5:
-                    // controlador.realizarPedido();
+                    controlador.verProductos();
                     break;
 
                 case 6:
-                   controlador.consultarPedidos(fichO);
+                    controlador.consultarPedidos(fichO);
                     break;
 
                 case 7:
-                   controlador.historialProducto( fichO);
+                    controlador.historialProducto(fichO);
                     break;
             }
 
