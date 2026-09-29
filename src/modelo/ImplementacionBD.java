@@ -16,23 +16,19 @@ public class ImplementacionBD implements ShopDAO {
     private Connection con;
     private PreparedStatement stmt;
     private ResourceBundle configFile;
-    private String driverBD;
     private String urlBD;
     private String userBD;
     private String passwordBD;
     private ResultSet rs;
 
     // Sentencias SQL
-    final String CustomerId = "SELECT * FROM Customer WHERE id = ?";
-    final String InsertarProducto = "INSERT INTO PRODUCT (ID, NAME_P, PRICE, CATEGORY, STOCK, ROOT) VALUES (?, ?, ?, ?, ?, ?)";
-    final String InsertarCliente = "INSERT INTO CLIENT_S (ID, NAME_C, EMAIL, PHONE, ADDRESS) VALUES (?, ?, ?, ?, ?)";
-
-    final String VER_PRODUCTOS = "SELECT * FROM PRODUCT WHERE STOCK > 0";
-    final String SQL_CustomerId = "SELECT * FROM Customer WHERE id = ?";
-    final String SQL_OrdersByCustomer = "SELECT orderId, orderDate, total FROM Orders WHERE customerId = ?";
-
-    final String SQLUPDATE_STOCK = "UPDATE PRODUCT SET STOCK=? WHERE ID=?";
-    final String SQLSHOW_PRODUCTS = "SELECT ID FROM PRODUCT WHERE ID=?";
+    final String SQL_CustomerId = "SELECT * FROM CUSTOMER WHERE ID = ?";
+    final String SQL_InsertProduct = "INSERT INTO PRODUCT (ID, NAME_P, PRICE, CATEGORY, STOCK, ROOT) VALUES (?, ?, ?, ?, ?, ?)";
+    final String SQL_InsertClient = "INSERT INTO CLIENT_S (ID, NAME_C, EMAIL, PHONE, ADDRESS) VALUES (?, ?, ?, ?, ?)";
+    final String SQL_VerProductos = "SELECT * FROM PRODUCT WHERE STOCK > 0";
+    final String SQL_OrdersByCustomer = "SELECT orderId, orderDate, total FROM ORDERS WHERE customerId = ?";
+    final String SQL_UpdateStock = "UPDATE PRODUCT SET STOCK=? WHERE ID=?";
+    final String SQL_ProductExists = "SELECT ID FROM PRODUCT WHERE ID=?";
 
     // Singleton
     private static ImplementacionBD instance;
@@ -53,22 +49,21 @@ public class ImplementacionBD implements ShopDAO {
 
     private void openConnection() {
         try {
-            con = DriverManager.getConnection(urlBD, this.userBD, this.passwordBD);
+            con = DriverManager.getConnection(urlBD, userBD, passwordBD);
         } catch (SQLException e) {
-            System.out.println("Error al intentar abrir la BD");
-            e.printStackTrace();
-        } catch (Exception e) {
+            System.out.println("Error al abrir la BD");
             e.printStackTrace();
         }
     }
 
+    // -------------------- REGISTRAR PRODUCTO --------------------
     public boolean registrarProducto(Product p) {
 
         openConnection();
         boolean ok = false;
 
         try {
-            stmt = con.prepareStatement(InsertarProducto);
+            stmt = con.prepareStatement(SQL_InsertProduct);
 
             stmt.setInt(1, p.getId());
             stmt.setString(2, p.getName());
@@ -77,28 +72,26 @@ public class ImplementacionBD implements ShopDAO {
             stmt.setInt(5, p.getStock());
             stmt.setString(6, p.getPath());
 
-            if (stmt.executeUpdate() > 0) {
-                ok = true;
-            }
+            ok = stmt.executeUpdate() > 0;
 
             stmt.close();
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error registering a product: " + e.getMessage());
+            System.out.println("Error registrando producto: " + e.getMessage());
         }
 
         return ok;
     }
 
+    // -------------------- REGISTRAR CLIENTE --------------------
     public boolean registrarCliente(Client c) {
 
         openConnection();
         boolean ok = false;
 
         try {
-
-            stmt = con.prepareStatement(InsertarCliente);
+            stmt = con.prepareStatement(SQL_InsertClient);
 
             stmt.setInt(1, c.getId());
             stmt.setString(2, c.getName());
@@ -106,29 +99,26 @@ public class ImplementacionBD implements ShopDAO {
             stmt.setString(4, c.getPhoneNumber());
             stmt.setString(5, c.getAddress());
 
-            if (stmt.executeUpdate() > 0) {
-                ok = true;
-            }
+            ok = stmt.executeUpdate() > 0;
 
             stmt.close();
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error registering a client: " + e.getMessage());
+            System.out.println("Error registrando cliente: " + e.getMessage());
         }
 
         return ok;
     }
 
+    // -------------------- VER PRODUCTOS --------------------
     public void verProductos() {
 
         List<Product> productos = new ArrayList<>();
-
-        this.openConnection();
+        openConnection();
 
         try {
-
-            stmt = con.prepareStatement(VER_PRODUCTOS);
+            stmt = con.prepareStatement(SQL_VerProductos);
             ResultSet resultado = stmt.executeQuery();
 
             while (resultado.next()) {
@@ -151,33 +141,30 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error al mostrar productos: " + e.getMessage());
+            System.out.println("Error mostrando productos: " + e.getMessage());
         }
     }
 
+    // -------------------- OBTENER CLIENTE POR ID --------------------
     @Override
     public Client getCustomerById(int id) {
 
         Client customer = null;
-
-        this.openConnection();
+        openConnection();
 
         try {
-
             stmt = con.prepareStatement(SQL_CustomerId);
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
                 customer = new Client();
-
-                customer.setId(rs.getInt("id"));
-                customer.setName(rs.getString("name"));
-                customer.setEmail(rs.getString("email"));
-                customer.setPhoneNumber(rs.getString("phoneNumber"));
-                customer.setAddress(rs.getString("address"));
+                customer.setId(rs.getInt("ID"));
+                customer.setName(rs.getString("NAME"));
+                customer.setEmail(rs.getString("EMAIL"));
+                customer.setPhoneNumber(rs.getString("PHONE"));
+                customer.setAddress(rs.getString("ADDRESS"));
             }
 
             rs.close();
@@ -185,47 +172,13 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error al obtener datos del cliente: " + e.getMessage());
+            System.out.println("Error obteniendo cliente: " + e.getMessage());
         }
 
         return customer;
     }
 
-    private ArrayList<Order> loadOrdersForCustomer(int id) {
-
-        ArrayList<Order> orders = new ArrayList<>();
-
-        try {
-
-            stmt = con.prepareStatement(SQL_OrdersByCustomer);
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                /*
-                Order o = new Order(
-                        rs.getInt("id"),
-                        rs.getInt("idCostumer"),
-                        rs.getDate("orderDate").toLocalDate(),
-                        rs.getBoolean("delivered")
-                );
-
-                orders.add(o);
-                */
-            }
-
-            rs.close();
-            stmt.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error al cargar pedidos: " + e.getMessage());
-        }
-
-        return orders;
-    }
-
+    // -------------------- EDITAR STOCK --------------------
     @Override
     public void editStock() {
 
@@ -233,7 +186,6 @@ public class ImplementacionBD implements ShopDAO {
         boolean exists;
 
         do {
-
             System.out.println("Enter the product's identifier");
             product.setId(Utilidades.leerInt());
 
@@ -246,7 +198,6 @@ public class ImplementacionBD implements ShopDAO {
         } while (!exists);
 
         do {
-
             System.out.println("Enter the product's new stock");
             product.setStock(Utilidades.leerInt());
 
@@ -256,11 +207,10 @@ public class ImplementacionBD implements ShopDAO {
 
         } while (product.getStock() < 0);
 
-        this.openConnection();
+        openConnection();
 
         try {
-
-            stmt = con.prepareStatement(SQLUPDATE_STOCK);
+            stmt = con.prepareStatement(SQL_UpdateStock);
             stmt.setInt(1, product.getStock());
             stmt.setInt(2, product.getId());
 
@@ -274,18 +224,17 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-
-            System.out.println("AN ERROR HAS OCURRED WHILE TRYING TO UPDATE THE PRODUCT'S STOCK");
+            System.out.println("Error actualizando stock");
             e.printStackTrace();
         }
     }
 
+    // -------------------- PRODUCT EXISTS --------------------
     @Override
     public boolean productExists(Product product) {
 
         boolean exists = false;
-
-        this.openConnection();
+        openConnection();
 
         try {
             // Prepare the SQL query
@@ -294,17 +243,14 @@ public class ImplementacionBD implements ShopDAO {
 
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                exists = true;
-            }
+            exists = rs.next();
 
             rs.close();
             stmt.close();
             con.close();
 
         } catch (SQLException e) {
-
-            System.out.println("THE ID OF THE PRODUCT COULD NOT BE FOUND OR IDENTIFIED");
+            System.out.println("Error comprobando producto");
             e.printStackTrace();
         }
 

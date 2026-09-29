@@ -1,12 +1,11 @@
 package vista;
 
 import controlador.ShopControlador;
+import modelo.*;
 import utilidades.Utilidades;
+import java.io.File;
+import java.util.ArrayList;
 
-/**
- *
- * @author ire22
- */
 public class MainView {
 
     public static int menu() {
@@ -21,13 +20,15 @@ public class MainView {
         return Utilidades.leerInt(0, 7);
     }
 
-    // private ShopControlador controlador;
-    public MainView() {
-        //  this.controlador= new ShopControlador();
-    }
 
     public void start() {
+       ImplementacionFichero instanceF = ImplementacionFichero.getInstance();
+        ImplementacionBD instanceBD = ImplementacionBD.getInstance();
+        File fichO = new File("order.dat");
         ShopControlador cont = new ShopControlador();
+      if (!fichO.exists()) {
+            instanceF.fillDataOrder(fichO);
+        }
         int option;
         do {
             option = menu();
@@ -38,15 +39,15 @@ public class MainView {
                     break;
 
                 case 1:
-                    // controlador.registrarProducto();
+                    controlador.registrarProducto();
                     break;
 
                 case 2:
-                    // controlador.registrarCliente();
+                    controlador.registrarCliente();
                     break;
 
                 case 3:
-                    // controlador.verProductos();
+                    controlador.verProductos();
                     break;
 
                 case 4:
@@ -54,12 +55,15 @@ public class MainView {
                     break;
 
                 case 5:
+                    // controlador.realizarPedido();
                     break;
 
                 case 6:
+                   controlador.consultarPedidos(fichO);
                     break;
 
                 case 7:
+                   controlador.historialProducto( fichO);
                     break;
             }
 

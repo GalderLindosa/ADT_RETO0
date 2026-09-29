@@ -1,22 +1,20 @@
 package controlador;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 import modelo.*;
 import utilidades.Utilidades;
 
-/**
- *
- * @author Unai.Ibarguren
- */
 public class ShopControlador {
 
     private ImplementacionBD dao;
+    private ImplementacionFichero daoF;
 
     public ShopControlador() {
     ShopDAO dao = new ImplementacionBD();
@@ -33,64 +31,17 @@ public class ShopControlador {
     }
     public ShopControlador(){
         this.dao = ImplementacionBD.getInstance();
+        this.daoF = ImplementacionFichero.getInstance();
     }
+
+    // -------------------- PRODUCTOS BD --------------------
 
     public void verProductos() {
         dao.verProductos();
     }
 
-    public Client getCustomerById(int id) {
-        return dao.getCustomerById(id);
-    }
-
     public boolean registrarProducto(Product p) {
         return dao.registrarProducto(p);
-    }
-
-    public boolean registrarCliente(Client c) {
-        return dao.registrarCliente(c);
-    }
-
-    public void editStock() {
-        dao.editStock();
-    }
-
-    public boolean productExists(Product product) {
-        return dao.productExists(product);
-    }
-
-    public static boolean existCustomer(File fichO, int id) {
-
-        boolean clienteExiste = false;
-        boolean finArchivo = false;
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichO))) {
-
-            while (!finArchivo) {
-
-                try {
-
-                    Order o = (Order) ois.readObject();
-
-                    if (o.getIdCostumer() == id) {
-                        clienteExiste = true;
-                        finArchivo = true;
-                    }
-
-                } catch (EOFException e) {
-                    finArchivo = true;
-                }
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("No se encontró el fichero.");
-        } catch (ClassNotFoundException e) {
-            System.out.println("La clase Objeto no es válida.");
-        } catch (IOException e) {
-            System.out.println("Error leyendo el fichero.");
-        }
-
-        return clienteExiste;
     }
 
     public void registrarProducto() {
@@ -114,18 +65,9 @@ public class ShopControlador {
         int opcionCategoria = Utilidades.leerInt(1, 3);
 
         switch (opcionCategoria) {
-
-            case 1:
-                p.setCategory(Category.Footwear);
-                break;
-
-            case 2:
-                p.setCategory(Category.Textiles);
-                break;
-
-            case 3:
-                p.setCategory(Category.Accessories);
-                break;
+            case 1: p.setCategory(Category.Footwear); break;
+            case 2: p.setCategory(Category.Textiles); break;
+            case 3: p.setCategory(Category.Accessories); break;
         }
 
         System.out.println("Insert stock:");
@@ -141,6 +83,12 @@ public class ShopControlador {
         } else {
             System.out.println("Error registering a product.");
         }
+    }
+
+    // -------------------- CLIENTES BD --------------------
+
+    public boolean registrarCliente(Client c) {
+        return dao.registrarCliente(c);
     }
 
     public void registrarCliente() {
@@ -169,28 +117,139 @@ public class ShopControlador {
         } else {
             System.out.println("Error registering a client.");
         }
-      try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichO))) {
-          while (!finArchivo) {
-              try {
-                  Order o = (Order) ois.readObject();
+    }
 
-                  if (o.getIdCostumer() == id) {
-                      clienteExiste = true;
-                      finArchivo = true; // ya lo encontré
-                  }
-              } catch (EOFException e) {
-                  finArchivo = true; // fin del fichero
-              }
-          }
-      } catch (FileNotFoundException e) {
-          System.out.println("No se encontró el fichero.");
-      } catch (ClassNotFoundException e) {
-          System.out.println("La clase Objeto no es válida.");
-      } catch (IOException e) {
-          System.out.println("Error leyendo el fichero.");
-      }
+    public Client getCustomerById(int id) {
+        return dao.getCustomerById(id);
+    }
 
-      return clienteExiste;
+    // -------------------- STOCK --------------------
 
+    public void editStock() {
+        dao.editStock();
+    }
+
+    public boolean productExists(Product product) {
+        return dao.productExists(product);
+    }
+
+    // -------------------- FICHEROS (ORDERS) --------------------
+
+    public void fillDataOrder(File fichO) {
+        daoF.fillDataOrder(fichO);
+    }
+
+    public ArrayList<Order> pedidosCliente(File fichO, int id) {
+        return daoF.pedidosCliente(fichO, id);
+    }
+
+    public ArrayList<Order> productos(File fichO, int id) {
+        return daoF.productos(fichO, id);
+    }
+
+    public static boolean existCustomer(File fichO, int id) {
+
+        boolean clienteExiste = false;
+        boolean finArchivo = false;
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichO))) {
+
+            while (!finArchivo) {
+                try {
+                    Order o = (Order) ois.readObject();
+
+                    if (o.getIdCostumer() == id) {
+                        clienteExiste = true;
+                        finArchivo = true;
+                    }
+
+                } catch (EOFException e) {
+                    finArchivo = true;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encontró el fichero.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("La clase Objeto no es válida.");
+        } catch (IOException e) {
+            System.out.println("Error leyendo el fichero.");
+        }
+
+        return clienteExiste;
+    }
+    
+       // -------------------- CONSULTAR PEDIDOS --------------------
+    public void consultarPedidos(File fichO) {
+
+        int idCustomer;
+        boolean existe;
+
+        if (!fichO.exists()) {
+            fillDataOrder(fichO);
+        }
+
+        do {
+            System.out.println("Enter the customer ID:");
+            idCustomer = Utilidades.leerInt();
+            existe = existCustomer(fichO, idCustomer);
+
+            if (!existe) {
+                System.out.println("ID not found, please enter it again:");
+            }
+
+        } while (!existe);
+
+        ArrayList<Order> orders =pedidosCliente(fichO, idCustomer);
+
+        System.out.println("Orders of the customer with ID: " + idCustomer);
+        for (Order o : orders) {
+            System.out.println(o.getId());
+        }
+
+        boolean correcto = false;
+        int pedido;
+
+        do {
+            System.out.println("Which order do you want to check?");
+            pedido = Utilidades.leerInt();
+
+            for (Order o : orders) {
+                if (o.getId() == pedido) {
+                    System.out.println(o);
+                    correcto = true;
+                }
+            }
+
+            if (!correcto) {
+                System.out.println("Incorrect order ID, try again.");
+            }
+
+        } while (!correcto);
+    }
+    // -------------------- HISTORIAL PRODUCTO --------------------
+    public void historialProducto(File fichO) {
+
+        int idPro;
+        boolean correcto = false;
+        do {
+            System.out.println("Enter the product ID:");
+            idPro = Utilidades.leerInt();
+
+            ArrayList<Order> productHistory =productos(fichO, idPro);
+
+            if (productHistory == null || productHistory.isEmpty()) {
+                System.out.println("Error: The product ID is invalid or there are no orders for this product.");
+                correcto = false;
+            } else {
+                correcto = true;
+                System.out.println("Orders containing product " + idPro + ":");
+                for (Order o : productHistory) {
+                    System.out.println(o.getId());
+                }
+            }
+
+            
+        } while (!correcto);
     }
 }
