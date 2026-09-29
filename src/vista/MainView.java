@@ -27,34 +27,42 @@ public class MainView {
     }
 
     public void start() {
-        int option = -1;
         ShopControlador cont = new ShopControlador();
-
-        while (option != 0) {
-            option = this.menu();
+        int option;
+        do {
+            option = menu();
             switch (option) {
+
                 case 0:
                     System.out.println("GOODBYE");
                     break;
+
                 case 1:
+                    // controlador.registrarProducto();
                     break;
+
                 case 2:
+                    // controlador.registrarCliente();
                     break;
+
                 case 3:
+                    // controlador.verProductos();
                     break;
+
                 case 4:
-                    cont.editStock();
+                    controlador.editStock();
                     break;
+
                 case 5:
                     break;
+
                 case 6:
                     break;
+
                 case 7:
                     break;
             }
-        }
-        switch (option) {
-            // case 1: contcon
-        }
+
+        } while (option != 0);
     }
 }
