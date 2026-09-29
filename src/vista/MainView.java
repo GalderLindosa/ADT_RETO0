@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MainView {
 
     public static int menu() {
-        System.out.println("1. Register a product.");
+        System.out.println("\n1. Register a product.");
         System.out.println("2. Register a customer.");
         System.out.println("3. Place a product order.");
         System.out.println("4. Edit product stock. ");
