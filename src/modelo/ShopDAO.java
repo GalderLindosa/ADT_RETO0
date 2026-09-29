@@ -10,6 +10,11 @@ package modelo;
  */
 public interface ShopDAO {
 
+    
+    public void editStock();
+
+    public boolean productExists(Product product);
+
     public void verProductos();
 
     public Client getCustomerById(int id);

@@ -32,7 +32,6 @@ public class ShopControlador {
         dao.verProductos();
     }
     public ShopControlador(){
-        this.<error> = new ImplementacionBD ;
         this.dao = ImplementacionBD.getInstance();
     }
 

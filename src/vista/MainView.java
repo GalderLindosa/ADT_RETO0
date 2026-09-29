@@ -9,26 +9,17 @@ import utilidades.Utilidades;
  */
 public class MainView {
 
-    private ShopControlador controlador;
-
-    public MainView() {
-        this.controlador = new ShopControlador();
-    }
-
-    public int menu() {
-
-        System.out.println("1. Registrar producto");
-        System.out.println("2. Registrar cliente");
-        System.out.println("3. Consultar stock productos");
-        System.out.println("4. Editar stock");
-        System.out.println("5. Realizar pedido");
-        System.out.println("6. Consultar pedidos");
-        System.out.println("7. Ver historial pedido productos");
-        System.out.println("0. Salir");
-
+    public static int menu() {
+        System.out.println("1. Register a product.");
+        System.out.println("2. Register a customer.");
+        System.out.println("3. Place a product order.");
+        System.out.println("4. Edit product stock. ");
+        System.out.println("5. Check available products.");
+        System.out.println("6. Check a custormer's order.");
+        System.out.println("7. View order history for a specific product.");
+        System.out.println("Choose an option");
         return Utilidades.leerInt(0, 7);
     }
-
 
     // private ShopControlador controlador;
     public MainView() {
@@ -36,21 +27,10 @@ public class MainView {
     }
 
     public void start() {
-<<<<<<< HEAD
-
-        int option;
-
-        do {
-
-            option = menu();
-
-=======
-        int option = -1;
         ShopControlador cont = new ShopControlador();
-
-        while (option != 0) {
-            option = this.menu();
->>>>>>> origin/Branch_Galder
+        int option;
+        do {
+            option = menu();
             switch (option) {
 
                 case 0:
@@ -82,16 +62,7 @@ public class MainView {
                 case 7:
                     break;
             }
-<<<<<<< HEAD
 
         } while (option != 0);
     }
 }
-=======
-        }
-        switch (option) {
-            // case 1: contcon
-        }
-    }
-}
->>>>>>> origin/Branch_Galder
