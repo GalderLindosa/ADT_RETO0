@@ -174,15 +174,15 @@ public class ShopControlador {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("No se encontró el fichero.");
+            System.out.println("ile not found.");
 
         } catch (ClassNotFoundException e) {
 
-            System.out.println("La clase Objeto no es válida.");
+            System.out.println("Invalid object class.");
 
         } catch (IOException e) {
 
-            System.out.println("Error leyendo el fichero.");
+           System.out.println("Error reading the file");
         }
 
         return clienteExiste;
@@ -223,11 +223,6 @@ public class ShopControlador {
 
         int idCustomer;
         boolean existe;
-
-        if (!fichO.exists()) {
-            fillDataOrder(fichO);
-        }
-
         do {
 
             System.out.println("Enter the customer ID:");
@@ -236,9 +231,8 @@ public class ShopControlador {
             existe = existCustomer(fichO, idCustomer);
 
             if (!existe) {
-                System.out.println(
-                    "ID not found, please enter it again:"
-                );
+                System.out.println("ID not found, please enter it again or the customer has not placed any orders.");
+                
             }
 
         } while (!existe);
@@ -250,7 +244,7 @@ public class ShopControlador {
             "Orders of the customer with ID: "
             + idCustomer
         );
-
+        
         for (Order o : orders) {
             System.out.println(o.getId());
         }

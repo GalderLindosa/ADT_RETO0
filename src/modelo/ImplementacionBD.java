@@ -55,7 +55,7 @@ public class ImplementacionBD implements ShopDAO {
         try {
             con = DriverManager.getConnection(urlBD, userBD, passwordBD);
         } catch (SQLException e) {
-            System.out.println("Error al abrir la BD");
+            System.out.println("Error opening the database");
             e.printStackTrace();
         }
     }
@@ -82,7 +82,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error registrando producto: " + e.getMessage());
+            System.out.println("Error registering product: " + e.getMessage());
         }
 
         return ok;
@@ -109,7 +109,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error registrando cliente: " + e.getMessage());
+            System.out.println("Error registering client: " + e.getMessage());
         }
 
         return ok;
@@ -196,7 +196,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error obteniendo cliente: " + e.getMessage());
+            System.out.println("Error getting customer: " + e.getMessage());
         }
 
         return customer;
@@ -248,7 +248,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error actualizando stock");
+            System.out.println("Stock update error");
             e.printStackTrace();
         }
     }
@@ -274,7 +274,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error comprobando producto");
+            System.out.println("Error checking product");
             e.printStackTrace();
         }
 

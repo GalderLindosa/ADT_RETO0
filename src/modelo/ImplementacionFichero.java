@@ -43,9 +43,9 @@ public class ImplementacionFichero implements ShopDAOF {
         try {
             oos = new ObjectOutputStream(new FileOutputStream(fichO));
 
-            Product p1 = new Product(1, "Nike Air Max", 129.99,Category.FOOTWEAR , 15, "Warehouse A");
-            Product p2 = new Product(2, "Adidas Hoodie", 59.90,Category.TEXTILE, 30, "Warehouse B");
-            Product p3 = new Product(3, "Puma Running Shoes", 89.99,Category.FOOTWEAR  , 20, "Warehouse C");
+            Product p1 = new Product(1, "Nike Air Max", 129.99,Category.FOOTWEAR , 15, "nike.jpg");
+            Product p2 = new Product(2, "Adidas Hoodie", 59.90,Category.TEXTILE, 30, "adidas.jpg");
+            Product p3 = new Product(3, "Puma Running Shoes", 89.99,Category.FOOTWEAR  , 20, "puma.jpg");
 
             oos.writeObject(new Order(101, 1, LocalDate.of(2026,9,22), LocalDate.of(2026,9,25), true,new ArrayList<Product>(Arrays.asList(p1))));
             oos.writeObject(new Order(102, 3, LocalDate.of(2026,9,23), false,new ArrayList<Product>(Arrays.asList(p2, p3))));
@@ -77,7 +77,7 @@ public class ImplementacionFichero implements ShopDAOF {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error leyendo el fichero.");
+            System.out.println("Error reading the file.");
         }
 
         return clienteExiste;
@@ -100,7 +100,7 @@ public class ImplementacionFichero implements ShopDAOF {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error leyendo el fichero.");
+            System.out.println("Error reading the file.");
         }
 
         return aOrders;
@@ -128,7 +128,7 @@ public class ImplementacionFichero implements ShopDAOF {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error leyendo el fichero.");
+            System.out.println("Error reading the file.");
         }
 
         return aOrders;
@@ -144,9 +144,9 @@ public class ImplementacionFichero implements ShopDAOF {
                 moos.writeObject(order);
                 moos.close();
             } catch (FileNotFoundException e) {
-                    System.out.println("Error, fichero no encontrado");
+                    System.out.println("Error, File not found");
             } catch (IOException e) {
-                    System.out.println("Error en la entrada de datos");
+                    System.out.println("Error in data input");
             }
         } else {
             try {
@@ -154,9 +154,9 @@ public class ImplementacionFichero implements ShopDAOF {
                 oos.writeObject(order);
                 oos.close();
             } catch (FileNotFoundException e) {
-                    System.out.println("Error, fichero no encontrado");
+                    System.out.println("Error, File not found");
             } catch (IOException e) {
-                    System.out.println("Error en la entrada de datos");
+                    System.out.println("Error in data input");
             }
         }
     }
