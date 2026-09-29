@@ -25,7 +25,7 @@ public class ImplementacionBD implements ShopDAO {
     private ResultSet rs;
 
     // Sentencias SQL
-    final String SQL_CustomerId = "SELECT * FROM CUSTOMER WHERE ID = ?";
+    final String SQL_CustomerId = "SELECT * FROM CUSTOMER_S WHERE ID = ?";
     final String SQL_InsertProduct = "INSERT INTO PRODUCT (ID, NAME_P, PRICE, CATEGORY, STOCK, ROOT) VALUES (?, ?, ?, ?, ?, ?)";
     final String SQL_InsertClient = "INSERT INTO CLIENT_S (ID, NAME_C, EMAIL, PHONE, ADDRESS) VALUES (?, ?, ?, ?, ?)";
     final String SQL_VerProductos = "SELECT * FROM PRODUCT WHERE STOCK > 0";
@@ -290,7 +290,7 @@ public class ImplementacionBD implements ShopDAO {
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
-                
+                product = new Product();
                 product.setId(resultado.getInt("ID"));
                 product.setName(resultado.getString("NAME_P"));
                 product.setPrice(resultado.getDouble("PRICE"));

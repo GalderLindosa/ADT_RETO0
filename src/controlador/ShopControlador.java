@@ -192,13 +192,14 @@ public class ShopControlador {
         int id, idCustomer, idP;
         LocalDate orderDate = LocalDate.now();
         boolean delivered = false, fin = false;
-        ArrayList<Product> aProducts = null;
+        ArrayList<Product> aProducts = new ArrayList<Product>();
         String respuesta;
         
         System.out.println("Enter the orders id:");
         id = Utilidades.leerInt();
         System.out.println("Enter the customers id:");
         idCustomer = Utilidades.leerInt();
+        //idCustomer = getCustomerById(Utilidades.leerInt()).getId();
         do {
             System.out.println("Select the id of the product that will be in the order:");
             dao.verProductos();
