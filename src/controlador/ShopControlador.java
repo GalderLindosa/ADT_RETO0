@@ -165,4 +165,78 @@ public class ShopControlador {
 
         return clienteExiste;
     }
+    
+       // -------------------- CONSULTAR PEDIDOS --------------------
+    public void consultarPedidos(File fichO) {
+
+        int idCustomer;
+        boolean existe;
+
+        if (!fichO.exists()) {
+            fillDataOrder(fichO);
+        }
+
+        do {
+            System.out.println("Enter the customer ID:");
+            idCustomer = Utilidades.leerInt();
+            existe = existCustomer(fichO, idCustomer);
+
+            if (!existe) {
+                System.out.println("ID not found, please enter it again:");
+            }
+
+        } while (!existe);
+
+        ArrayList<Order> orders =pedidosCliente(fichO, idCustomer);
+
+        System.out.println("Orders of the customer with ID: " + idCustomer);
+        for (Order o : orders) {
+            System.out.println(o.getId());
+        }
+
+        boolean correcto = false;
+        int pedido;
+
+        do {
+            System.out.println("Which order do you want to check?");
+            pedido = Utilidades.leerInt();
+
+            for (Order o : orders) {
+                if (o.getId() == pedido) {
+                    System.out.println(o);
+                    correcto = true;
+                }
+            }
+
+            if (!correcto) {
+                System.out.println("Incorrect order ID, try again.");
+            }
+
+        } while (!correcto);
+    }
+    // -------------------- HISTORIAL PRODUCTO --------------------
+    public void historialProducto(File fichO) {
+
+        int idPro;
+        boolean correcto = false;
+        do {
+            System.out.println("Enter the product ID:");
+            idPro = Utilidades.leerInt();
+
+            ArrayList<Order> productHistory =productos(fichO, idPro);
+
+            if (productHistory == null || productHistory.isEmpty()) {
+                System.out.println("Error: The product ID is invalid or there are no orders for this product.");
+                correcto = false;
+            } else {
+                correcto = true;
+                System.out.println("Orders containing product " + idPro + ":");
+                for (Order o : productHistory) {
+                    System.out.println(o.getId());
+                }
+            }
+
+            
+        } while (!correcto);
+    }
 }

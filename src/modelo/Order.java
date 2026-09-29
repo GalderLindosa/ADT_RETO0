@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,7 +12,9 @@ import java.util.ArrayList;
  *
  * @author ire22
  */
-public class Order {
+public class Order  implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private int id;
     private int idCostumer;
     private LocalDate orderDate; 
@@ -30,9 +33,11 @@ public class Order {
     }
     public Order(int id,int idCostumer, LocalDate orderDate, boolean delivered,ArrayList<Integer>aProducts) {
         this.id = id;
+        this.idCostumer=idCostumer;
         this.orderDate = orderDate;
         this.delivered = delivered;
-         this.aProducts=aProducts;
+        this.aProducts=aProducts;
+        //se podrian hacer directamente asiganando el valor de boolean 
     }
 
     public int getId() {
@@ -82,11 +87,12 @@ public class Order {
     public void setaProducts(ArrayList<Integer> aProducts) {
         this.aProducts = aProducts;
     }
-    
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", orderDate=" + orderDate + ", endDate=" + endDate + ", delivered=" + delivered + '}';
+        return "Order{" + "id=" + id + ", idCostumer=" + idCostumer + ", orderDate=" + orderDate + ", endDate=" + endDate + ", delivered=" + delivered + ", aProducts=" + aProducts + '}';
     }
+    
 
+   
 }
