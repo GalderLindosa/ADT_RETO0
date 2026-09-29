@@ -4,10 +4,13 @@
  */
 package modelo;
 
+import java.io.File;
 /**
  *
  * @author Unai.Ibarguren
  */
 public interface ShopDAO {
     public Client getCustomerById(int id);
+    
+    
 }
