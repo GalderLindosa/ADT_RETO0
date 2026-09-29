@@ -1,15 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vista;
 
-import java.io.File;
-import java.util.ArrayList;
-import modelo.Client;
-import modelo.ImplementacionBD;
-import modelo.ImplementacionFichero;
-import modelo.Order;
+import controlador.ShopControlador;
 import utilidades.Utilidades;
 
 /**
@@ -17,26 +8,25 @@ import utilidades.Utilidades;
  * @author ire22
  */
 public class MainView {
-   // private ShopControlador controlador;
-   
+
+    private ShopControlador controlador;
+
     public MainView() {
-     // this.controlador= new ShopControlador();
+        this.controlador = new ShopControlador();
     }
-    
-    
-     public int menu(){
-        int resp;
-        System.out.println("-1.Registrar producto"
-                + "\n-2.Registrar cliente"
-                + "\n-3.Consultar stock productos"
-                + "\n-4.Editar stock"
-                + "\n-5.Realizar pedido"
-                + "\n-6.Conusltar pedidos"
-                + "\n-7.Ver historial pedido productos"
-                + "\n-0.Salir");
-                
-        resp=Utilidades.leerInt(0, 7); 
-        return resp; 
+
+    public int menu() {
+
+        System.out.println("1. Registrar producto");
+        System.out.println("2. Registrar cliente");
+        System.out.println("3. Consultar stock productos");
+        System.out.println("4. Editar stock");
+        System.out.println("5. Realizar pedido");
+        System.out.println("6. Consultar pedidos");
+        System.out.println("7. Ver historial pedido productos");
+        System.out.println("0. Salir");
+
+        return Utilidades.leerInt(0, 7);
     }
      
      public void start(){
@@ -131,4 +121,48 @@ public class MainView {
         
    
      }
+
+        int option = -1;
+        ShopControlador cont = new ShopControlador();
+
+        while (option != 0) {
+            option = this.menu();
+            switch (option) {
+
+                case 0:
+                    System.out.println("GOODBYE");
+                    break;
+
+                case 1:
+                    // controlador.registrarProducto();
+                    break;
+
+                case 2:
+                    // controlador.registrarCliente();
+                    break;
+
+                case 3:
+                    // controlador.verProductos();
+                    break;
+
+                case 4:
+                    controlador.editStock();
+                    break;
+
+                case 5:
+                    break;
+
+                case 6:
+                    break;
+
+                case 7:
+                    break;
+            }
+        }
+        switch (option) {
+            // case 1: contcon
+        }
+    }
+}
+
 
