@@ -22,12 +22,18 @@ public class MainView {
         return Utilidades.leerInt(0, 7);
     }
 
+
+    // private ShopControlador controlador;
+    public MainView() {
+        //  this.controlador= new ShopControlador();
+    }
+
     public void start() {
-        int option;
+        int option = -1;
         ShopControlador cont = new ShopControlador();
 
-        do {
-            option = menu();
+        while (option != 0) {
+            option = this.menu();
             switch (option) {
                 case 0:
                     System.out.println("GOODBYE");
@@ -48,7 +54,9 @@ public class MainView {
                 case 7:
                     break;
             }
-        } while (option != 0);
+        }
+        switch (option) {
+            // case 1: contcon
+        }
     }
-
 }
