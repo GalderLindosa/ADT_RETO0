@@ -39,10 +39,10 @@ public class ImplementacionBD implements ShopDAO {
         this.userBD = this.configFile.getString("DBUser");
         this.passwordBD = this.configFile.getString("DBPass");
     }
-
-    public static ImplementacionBD getInstance() {
-        if (instance == null) {
-            instance = new ImplementacionBD();
+    
+    public static ImplementacionBD getInstance(){
+        if(instance == null){
+             instance = new ImplementacionBD();
         }
         return instance;
     }
@@ -237,7 +237,8 @@ public class ImplementacionBD implements ShopDAO {
         openConnection();
 
         try {
-            stmt = con.prepareStatement(SQL_ProductExists);
+            // Prepare the SQL query
+            stmt = con.prepareStatement(SQLGET_PRODUCT);
             stmt.setInt(1, product.getId());
 
             rs = stmt.executeQuery();

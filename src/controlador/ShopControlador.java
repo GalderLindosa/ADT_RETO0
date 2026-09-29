@@ -17,6 +17,19 @@ public class ShopControlador {
     private ImplementacionFichero daoF;
 
     public ShopControlador() {
+    ShopDAO dao = new ImplementacionBD();
+
+    public void editStock(){
+         dao.editStock();
+    }
+    
+    public boolean productExists(Product product){
+        return dao.productExists(product);
+    }
+    public void verProductos(){
+        dao.verProductos();
+    }
+    public ShopControlador(){
         this.dao = ImplementacionBD.getInstance();
         this.daoF = ImplementacionFichero.getInstance();
     }
