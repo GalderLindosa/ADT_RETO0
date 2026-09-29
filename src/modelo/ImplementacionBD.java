@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import utilidades.Utilidades;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 
 public class ImplementacionBD implements ShopDAO {
 
@@ -112,6 +115,7 @@ public class ImplementacionBD implements ShopDAO {
     }
 
     // -------------------- VER PRODUCTOS --------------------
+   // -------------------- VER PRODUCTOS --------------------
     public void verProductos() {
 
         List<Product> productos = new ArrayList<>();
@@ -120,6 +124,10 @@ public class ImplementacionBD implements ShopDAO {
         try {
             stmt = con.prepareStatement(SQL_VerProductos);
             ResultSet resultado = stmt.executeQuery();
+
+            // Verificamos si el sistema soporta abrir archivos externamente
+            boolean desktopSoportado = Desktop.isDesktopSupported();
+            Desktop desktop = desktopSoportado ? Desktop.getDesktop() : null;
 
             while (resultado.next()) {
 
@@ -130,10 +138,25 @@ public class ImplementacionBD implements ShopDAO {
                 producto.setPrice(resultado.getDouble("PRICE"));
                 producto.setCategory(Category.valueOf(resultado.getString("CATEGORY")));
                 producto.setStock(resultado.getInt("STOCK"));
-                producto.setPath(resultado.getString("ROOT"));
+                producto.setPath(resultado.getString("ROOT")); // Lee la ruta/nombre guardada en ROOT
 
                 productos.add(producto);
                 System.out.println(producto);
+
+                // --- ABRIR IMAGEN EN EL VISOR DEL ORDENADOR ---
+                if (desktopSoportado && producto.getPath() != null && !producto.getPath().isEmpty()) {
+                    File imagen = new File("src/img/"+producto.getPath());
+
+                    if (imagen.exists()) {
+                        try {
+                            desktop.open(imagen); // Abre con el visor predeterminado
+                        } catch (IOException e) {
+                            System.out.println("Fail opening image " + producto.getName() + ": " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("It dosent has found path: " + imagen.getAbsolutePath());
+                    }
+                }
             }
 
             resultado.close();
@@ -141,7 +164,7 @@ public class ImplementacionBD implements ShopDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Error mostrando productos: " + e.getMessage());
+            System.out.println("Fail showing products: " + e.getMessage());
         }
     }
 
