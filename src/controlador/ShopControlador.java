@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
 
 import java.io.EOFException;
@@ -10,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
 import modelo.*;
 import utilidades.Utilidades;
 
@@ -21,12 +18,12 @@ public class ShopControlador {
 
     private ImplementacionBD dao;
 
-    public void verProductos() {
-        dao.verProductos();
-    }
-
     public ShopControlador() {
         this.dao = ImplementacionBD.getInstance();
+    }
+
+    public void verProductos() {
+        dao.verProductos();
     }
 
     public Client getCustomerById(int id) {
@@ -41,23 +38,37 @@ public class ShopControlador {
         return dao.registrarCliente(c);
     }
 
+    public void editStock() {
+        dao.editStock();
+    }
+
+    public boolean productExists(Product product) {
+        return dao.productExists(product);
+    }
+
     public static boolean existCustomer(File fichO, int id) {
+
         boolean clienteExiste = false;
         boolean finArchivo = false;
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichO))) {
+
             while (!finArchivo) {
+
                 try {
+
                     Order o = (Order) ois.readObject();
 
                     if (o.getIdCostumer() == id) {
                         clienteExiste = true;
-                        finArchivo = true; // ya lo encontré
+                        finArchivo = true;
                     }
+
                 } catch (EOFException e) {
-                    finArchivo = true; // fin del fichero
+                    finArchivo = true;
                 }
             }
+
         } catch (FileNotFoundException e) {
             System.out.println("No se encontró el fichero.");
         } catch (ClassNotFoundException e) {
@@ -90,6 +101,7 @@ public class ShopControlador {
         int opcionCategoria = Utilidades.leerInt(1, 3);
 
         switch (opcionCategoria) {
+
             case 1:
                 p.setCategory(Category.Footwear);
                 break;
@@ -145,5 +157,4 @@ public class ShopControlador {
             System.out.println("Error registering a client.");
         }
     }
-
 }

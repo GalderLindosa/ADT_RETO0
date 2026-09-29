@@ -17,4 +17,8 @@ public interface ShopDAO {
     public boolean registrarProducto(Product p);
 
     public boolean registrarCliente(Client c);
+
+        public void editStock();
+        public boolean productExists(Product product);
+
 }
