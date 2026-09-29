@@ -10,7 +10,6 @@ import utilidades.Utilidades;
 public class MainView {
 
     public static int menu() {
-        System.out.println("GOODBYE");
         System.out.println("1. Register a product.");
         System.out.println("2. Register a customer.");
         System.out.println("3. Place a product order.");
@@ -21,7 +20,6 @@ public class MainView {
         System.out.println("Choose an option");
         return Utilidades.leerInt(0, 7);
     }
-
 
     // private ShopControlador controlador;
     public MainView() {

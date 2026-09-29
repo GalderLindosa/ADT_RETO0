@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlador;
+import static com.mysql.cj.protocol.x.XProtocolDecoder.instance;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +16,9 @@ import modelo.*;
  * @author Unai.Ibarguren
  */
 public class ShopControlador {
-    ShopDAO dao = new ImplementacionBD();
+    
+    private ImplementacionBD dao;
+    
 
     public void editStock(){
          dao.editStock();
@@ -28,7 +31,6 @@ public class ShopControlador {
         dao.verProductos();
     }
     public ShopControlador(){
-        this.<error> = new ImplementacionBD ;
         this.dao = ImplementacionBD.getInstance();
     }
     

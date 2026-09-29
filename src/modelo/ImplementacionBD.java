@@ -41,7 +41,7 @@ public class ImplementacionBD implements ShopDAO {
 
     //SQL STATEMENTS
     final String SQLUPDATE_STOCK = "UPDATE PRODUCT SET STOCK=? WHERE ID=?";
-    final String SQLSHOW_PRODUCTS = "SELECT ID FROM PRODUCTO";
+    final String SQLGET_PRODUCT = "SELECT ID FROM PRODUCT WHERE ID=?";
 
 
     final String VER_PRODUCTOS = "SELECT * FROM product WHERE stock > 0";
@@ -63,7 +63,7 @@ public class ImplementacionBD implements ShopDAO {
     
     public static ImplementacionBD getInstance(){
         if(instance == null){
-            ImplementacionBD instance = new ImplementacionBD();
+             instance = new ImplementacionBD();
         }
         return instance;
     }
@@ -136,7 +136,7 @@ public class ImplementacionBD implements ShopDAO {
 
         try {
             // Prepare the SQL query
-            stmt = con.prepareStatement(SQLSHOW_PRODUCTS);
+            stmt = con.prepareStatement(SQLGET_PRODUCT);
             stmt.setInt(1, product.getId());
             //Executes the SQL query
             rs = stmt.executeQuery();
@@ -214,7 +214,8 @@ public class ImplementacionBD implements ShopDAO {
     }
     return customer;
 }
-private ArrayList<Order> loadOrdersForCustomer(int id) {
+
+    private ArrayList<Order> loadOrdersForCustomer(int id) {
     ArrayList<Order> orders = new ArrayList<>();
 
     try {
