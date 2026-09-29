@@ -9,5 +9,5 @@ package modelo;
  * @author ire22
  */
 public enum Category {
-    Footwear,Textiles, Accessories; 
+    FOOTWEAR,TEXTILE, ACCESSORY; 
 }

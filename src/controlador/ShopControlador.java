@@ -55,15 +55,15 @@ public class ShopControlador {
 
         switch (opcionCategoria) {
             case 1:
-                p.setCategory(Category.Footwear);
+                p.setCategory(Category.FOOTWEAR);
                 break;
 
             case 2:
-                p.setCategory(Category.Textiles);
+                p.setCategory(Category.TEXTILE);
                 break;
 
             case 3:
-                p.setCategory(Category.Accessories);
+                p.setCategory(Category.ACCESSORY);
                 break;
         }
 

@@ -42,15 +42,17 @@ public class ImplementacionFichero implements ShopDAOF {
         try {
             oos = new ObjectOutputStream(new FileOutputStream(fichO));
 
-        oos.writeObject(new Order(101, 1,LocalDate.of(2026,9,22),LocalDate.of(2026,9,25),true,new ArrayList<Integer>(Arrays.asList(1,3))));
-        oos.writeObject(new Order(102, 3,LocalDate.of(2026,9,23),false,new ArrayList<Integer>(Arrays.asList(2,5))));
-        oos.writeObject(new Order(103, 5,LocalDate.of(2026,9,20),LocalDate.of(2026,9,28),true,new ArrayList<Integer>(Arrays.asList(4))));
-        oos.writeObject(new Order(104, 2,LocalDate.of(2026,9,24),false,new ArrayList<Integer>(Arrays.asList(6,3))));
-        oos.writeObject(new Order(105, 4,LocalDate.of(2026,9,21),LocalDate.of(2026,9,27),true,new ArrayList<Integer>(Arrays.asList(1,2,5))));
-        oos.writeObject(new Order(106, 4,LocalDate.of(2026,9,18),LocalDate.of(2026,9,27),true,new ArrayList<Integer>(Arrays.asList(4,3,6))));
-       
-        
-        oos.close();
+            Product p1 = new Product(1, "Nike Air Max", 129.99,Category.FOOTWEAR , 15, "Warehouse A");
+            Product p2 = new Product(2, "Adidas Hoodie", 59.90,Category.TEXTILE, 30, "Warehouse B");
+            Product p3 = new Product(3, "Puma Running Shoes", 89.99,Category.FOOTWEAR  , 20, "Warehouse C");
+
+            oos.writeObject(new Order(101, 1, LocalDate.of(2026,9,22), LocalDate.of(2026,9,25), true,new ArrayList<Product>(Arrays.asList(p1))));
+            oos.writeObject(new Order(102, 3, LocalDate.of(2026,9,23), false,new ArrayList<Product>(Arrays.asList(p2, p3))));
+            oos.writeObject(new Order(103, 5, LocalDate.of(2026,9,20), LocalDate.of(2026,9,28), true,new ArrayList<Product>(Arrays.asList(p3))));
+            oos.writeObject(new Order(105, 4, LocalDate.of(2026,9,21), LocalDate.of(2026,9,27), true, new ArrayList<Product>(Arrays.asList(p1, p2))));
+            oos.writeObject(new Order(106, 4, LocalDate.of(2026,9,18), LocalDate.of(2026,9,27), false,new ArrayList<Product>(Arrays.asList(p3, p1, p2))));
+            
+            oos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,10 +114,10 @@ public class ImplementacionFichero implements ShopDAOF {
             while (!finArchivo) {
                 try {
                     Order o = (Order) ois.readObject();
-                    ArrayList<Integer> aProd = o.getaProducts();
+                    ArrayList<Product> aProd = o.getaProducts();
 
-                    for (int prodId : aProd) {
-                        if (prodId == id) {
+                    for (Product pro : aProd) {
+                        if (pro.getId() == id) {
                             aOrders.add(o);
                         }
                     }

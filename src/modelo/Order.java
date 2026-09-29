@@ -20,10 +20,10 @@ public class Order  implements Serializable{
     private LocalDate orderDate; 
     private LocalDate endDate; 
     private boolean delivered;
-    private ArrayList<Integer>aProducts;
+    private ArrayList<Product>aProducts;
     
 
-    public Order(int id,int idCostumer, LocalDate orderDate, LocalDate endDate, boolean delivered,ArrayList<Integer>aProducts) {
+    public Order(int id,int idCostumer, LocalDate orderDate, LocalDate endDate, boolean delivered,ArrayList<Product>aProducts) {
         this.id = id;
         this.idCostumer=idCostumer;
         this.orderDate = orderDate;
@@ -31,7 +31,7 @@ public class Order  implements Serializable{
         this.delivered = delivered;
         this.aProducts=aProducts;
     }
-    public Order(int id,int idCostumer, LocalDate orderDate, boolean delivered,ArrayList<Integer>aProducts) {
+    public Order(int id,int idCostumer, LocalDate orderDate, boolean delivered,ArrayList<Product>aProducts) {
         this.id = id;
         this.idCostumer=idCostumer;
         this.orderDate = orderDate;
@@ -80,11 +80,11 @@ public class Order  implements Serializable{
         this.idCostumer = idCostumer;
     }
 
-    public ArrayList<Integer> getaProducts() {
+    public ArrayList<Product> getaProducts() {
         return aProducts;
     }
 
-    public void setaProducts(ArrayList<Integer> aProducts) {
+    public void setaProducts(ArrayList<Product> aProducts) {
         this.aProducts = aProducts;
     }
 
